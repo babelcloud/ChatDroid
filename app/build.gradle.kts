@@ -3,6 +3,9 @@ plugins {
     alias(libs.plugins.kotlin.android)
 }
 
+// Base URL for the Open WebUI backend; override with -POPEN_WEBUI_BASE_URL or gradle.properties
+val openWebUiBaseUrl: String = project.findProperty("OPEN_WEBUI_BASE_URL") as? String ?: "http://34.121.157.227:3000/api/v1/"
+
 android {
     namespace = "ai.gbox.chatdroid"
     compileSdk = 35
@@ -15,6 +18,8 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        // Inject the BASE_URL into BuildConfig so it can be read at runtime without hard-coding
+        buildConfigField("String", "BASE_URL", "\"$openWebUiBaseUrl\"")
     }
 
     buildTypes {

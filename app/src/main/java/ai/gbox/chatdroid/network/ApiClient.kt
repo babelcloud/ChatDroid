@@ -6,12 +6,14 @@ import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import ai.gbox.chatdroid.BuildConfig
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
 object ApiClient {
 
-    private const val BASE_URL = "http://34.121.157.227:3000/api/v1/"
+    // Base URL is provided via BuildConfig (see build.gradle.kts)
+    private val BASE_URL: String = BuildConfig.BASE_URL
 
     // Inject bearer token if available
     private val authInterceptor = Interceptor { chain ->
